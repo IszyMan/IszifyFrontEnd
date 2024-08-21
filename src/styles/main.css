@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600;1,700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"); */
+
+body {
+  font-family: "Open Sans";
+}
+/* Require html and body at base layer */
+@layer base {
+  :root {
+    --popper-theme-padding: 0;
+    --popper-theme-background-color: #fff;
+    --popper-theme-background-color-hover: #fff;
+    --popper-theme-border-radius: 10px;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply text-accent bg-white font-sans text-sm relative tracking-wide;
+  }
+  /* For Webkit-based browsers (Chrome, Safari and Opera) */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+    color: #79d38585;
+  }
+
+  /* For IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    -o-overflow-style: none; /* opera */
+    scrollbar-width: 1px; /* Firefox */
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    display: none;
+  }
+
+  .btn-glass {
+    background: rgba(214, 214, 214, 0.161);
+    box-shadow: 0 8px 20px 0 rgba(147, 149, 179, 0.37);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 4px;
+  }
+  .card {
+    background: rgba(214, 214, 214, 0.161);
+    box-shadow: 0 8px 24px 0 rgba(147, 149, 179, 0.37);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  .card-blue {
+    background: rgba(170, 232, 224, 0.106);
+    box-shadow: 0 8px 32px 0 rgba(147, 149, 179, 0.37);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 10px;
+    border: 1px solid rgba(51, 50, 50, 0.18);
+  }
+
+  .overview-card {
+    background: rgba(158, 178, 209, 0.106);
+    box-shadow: 0 8px 32px 0 rgba(126, 126, 134, 0.37);
+    /* backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px); */
+    border-radius: 10px;
+  }
+  .filter-box {
+    background: rgba(233, 238, 236, 0.413);
+    box-shadow: 0 8px 32px 0 rgba(211, 212, 240, 0.37);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 5px;
+    border: 1px solid rgba(51, 50, 50, 0.18);
+  }
+
+  .bubble {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 0%;
+    right: 50%;
+    animation: moveBubble 10s linear infinite;
+  }
+
+  @keyframes moveBubble {
+  }
+}
+
+@layer components {
+  .v-input {
+    @apply w-full border-[0.5px] mt-2 text-sm bg-transparent indent-3 py-2.5 border-accent-shades focus:outline focus:outline-info-shades rounded-md placeholder:text-xs md:placeholder:text-sm;
+  }
+  .btn-full {
+    @apply w-full bg-info py-2.5 rounded-lg text-white hover:bg-info-tint hover:text-info font-bold;
+  }
+  .btn-sm {
+    @apply bg-info text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-info-tint hover:text-info;
+  }
+}

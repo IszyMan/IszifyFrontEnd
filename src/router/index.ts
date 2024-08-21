@@ -10,11 +10,65 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/about",
     name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+      import(/* webpackChunkName: "about" */ "@/views/AboutView.vue"),
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "@/views/auth/LoginView.vue"),
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "@/views/auth/SignUpView.vue"),
+  },
+  {
+    path: "/reset-password/:accesstoken",
+    name: "reset-password",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "@/views/auth/ResetPasswordView.vue"
+      ),
+  },
+  {
+    path: "/forgot-password",
+    name: "forgot-password",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "@/views/auth/ForgotPasswordView.vue"
+      ),
+  },
+  {
+    path: "/otp-verify",
+    name: "otp-verify",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "@/views/auth/OtpView.vue"),
+  },
+  {
+    path: "/admin",
+    name: "admins",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "@/views/admin/AdminView.vue"),
+    children: [
+      {
+        path: "dashboard",
+        name: "dashboard",
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ "@/views/admin/DashboardView.vue"
+          ),
+      },
+    ],
+  },
+
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: () => import("@/views/NotFound.vue"),
+    meta: { noSidebar: true },
   },
 ];
 
