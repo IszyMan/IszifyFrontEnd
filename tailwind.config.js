@@ -5,14 +5,14 @@ export default {
     extend: {
       colors: {
         primary: {
-          shades: "#62fd76",
-          DEFAULT: "#18db33", //
+          shades: "#62fd75",
+          DEFAULT: "#019933", //
           tint: "#79d38585",
         },
         secondary: {
           shades: "#eef9e5",
           DEFAULT: "#e6f8d7", //
-          tint: "#e6f8d7bf",
+          tint: "#f9fbfc",
         },
 
         info: {
@@ -34,9 +34,9 @@ export default {
         },
 
         accent: {
-          shades: "#d9d9d9",
+          shades: "#dbe0eb",
           DEFAULT: "#728297", //
-          tint: "##e2e8f0",
+          tint: "#f4f6fa",
         },
 
         white: {
@@ -47,5 +47,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };

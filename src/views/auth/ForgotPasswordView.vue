@@ -85,7 +85,7 @@ const isLoading = ref(false);
 const handleForgotPassword = async () => {
   isLoading.value = true;
   const response = await forgotPassword({
-    frontend_url: "http://localhost:8081/reset-password",
+    frontend_url: "https://iszify.netlify.app/reset-password",
     email: email.value.toLowerCase(),
   });
 
@@ -93,7 +93,7 @@ const handleForgotPassword = async () => {
     toast.success(response?.data?.message);
     isLoading.value = false;
   } else {
-    toast.error(response?.data?.message || "Network Error");
+    toast.error(response?.error?.message || "Network Error, try again.");
     isLoading.value = false;
   }
 };

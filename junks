@@ -1,0 +1,65 @@
+      <!-- QR Code Action Buttons -->
+          <!-- <div class="flex justify-center gap-5 mt-3">
+            <div
+              @click="openModal"
+              class="p-2 rounded-full hover:scale-100 hover:bg-secondary-shades hover:-translate-y-1"
+            >
+              <img
+                src="/icons/customize-blue.svg"
+                class="cursor-pointer h-[20px] w-[20px]"
+                alt=""
+              />
+            </div>
+            <div
+              @click="copyQRCodeToClipboard"
+              class="p-2 rounded-full hover:scale-100 hover:bg-info-tint hover:-translate-y-1"
+            >
+              <img
+                src="/icons/copy.svg"
+                class="cursor-pointer h-[20px] w-[20px]"
+                alt=""
+              />
+            </div>
+          </div> -->
+
+          <!-- Download Button -->
+          <!-- <div class="mt-5">
+            <a :href="qrCodeDataUrl" download="qrcode.png">
+              <button
+                class="btn-full w-[300px] capitalize flex justify-center mx-auto mt-3"
+              >
+                continue
+              </button>
+            </a>
+          </div> -->
+
+          // Copy the QR code to the clipboard
+const copyQRCodeToClipboard = async () => {
+  try {
+    if (!qrCodeDataUrl.value) {
+      alert("QR Code not available.");
+      return;
+    }
+
+    const img = new Image();
+    img.src = qrCodeDataUrl.value;
+
+    img.onload = async () => {
+      const canvas = document.createElement("canvas");
+      const ctx: any = canvas.getContext("2d");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+
+      const blob = await new Promise((resolve) =>
+        canvas.toBlob(resolve, "image/png")
+      );
+      const item = new ClipboardItem({ "image/png": blob } as any);
+
+      await navigator.clipboard.write([item]);
+      toast.info("QR Code copied to clipboard!");
+    };
+  } catch (error) {
+    console.error("Failed to copy QR code to clipboard:", error);
+  }
+};

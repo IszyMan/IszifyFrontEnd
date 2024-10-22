@@ -91,7 +91,7 @@
                   <button
                     :disabled="!isValid"
                     @click="handleVerifyAcc"
-                    @keydown.enter.once="handleVerifyAcc"
+                    @keydown.enter="handleVerifyAcc"
                     class="w-full rounded-md text-white md:h-10 h-8 text-sm md:text-base font-bold p-2 border-0 focus:bg-info-shades flex justify-center items-center gap-2"
                     type="button"
                     :class="
@@ -100,7 +100,9 @@
                         : 'bg-info hover:bg-info-tint hover:text-info cursor-pointer'
                     "
                   >
-                    <span v-if="loading"><LoadingSpinner /> </span>
+                    <span v-if="loading"
+                      ><LoadingSpinner :color="'info'" />
+                    </span>
                     <span>Proceed</span>
                   </button>
                 </div>
@@ -124,7 +126,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, computed } from "vue";
+import { defineComponent, reactive, ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/store/auth";
 import { verifyAccount, resendOTP } from "@/services/auth.service";
@@ -229,7 +231,7 @@ export default defineComponent({
         });
         initialize();
         toast.error(response?.data?.message);
-        window.location.href = "/dashboard";
+        window.location.href = "/admin/dashboard";
         loading.value = false;
       } else {
         toast.error(
@@ -247,12 +249,18 @@ export default defineComponent({
       });
       if (!response.error) {
         isLoading.value = false;
-        toast.success(response?.data?.msg || "Email sent successfully");
+        toast.success(response?.data?.message || "Email sent successfully");
       } else {
-        toast.error(response.error.msg || "An error occured: Please try again");
+        toast.error(
+          response.error.message || "An error occured: Please try again"
+        );
         isLoading.value = false;
       }
     };
+
+    onMounted(() => {
+      console.log(getStorageData().email);
+    });
 
     return {
       closeModal,

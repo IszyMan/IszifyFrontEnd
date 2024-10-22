@@ -2,64 +2,66 @@
   <section class="min-h-screen flex">
     <section class="w-full md:w-[60%] px-10 sm:px-20 py-5 md:p-10">
       <div class="flex flex-col justify-between h-full w-full mx-auto">
-        <div class="flex gap-2 items-center">
+        <div class="flex gap-2 w-full items-center">
           <img src="/icons/logo.svg" alt="" />
           <h1 class="text-xl font-extrabold text-black">ISZIFY</h1>
         </div>
 
-        <div class="w-full md:w-[400px] mx-auto mt-10 md:mt-20 h-full">
-          <h2 class="text-info text-2xl md:text-3xl font-bold text-center">
-            Login
-          </h2>
-          <form @submit.prevent class="flex flex-col gap-8 mt-10">
-            <div>
-              <p class="text-accent font-bold text-sm">Email</p>
-              <input
-                v-model="store.form.email"
-                name="email"
-                class="v-input"
-                type="'email'"
-              />
-            </div>
-
-            <div>
-              <p class="text-accent font-bold text-sm">Password</p>
-              <div class="flex relative w-full">
-                <img
-                  @click="toggleLoginPassword()"
-                  :src="`/icons/${switchLoginImage}`"
-                  alt=""
-                  class="absolute right-2 cursor-pointer top-5"
-                />
+        <div class="w-full self-center h-full">
+          <div class="mx-auto mt-10 md:mt-20 md:w-[400px]">
+            <h2 class="text-info text-2xl md:text-3xl font-bold text-center">
+              Login
+            </h2>
+            <form @submit.prevent class="flex flex-col gap-8 mt-10">
+              <div>
+                <p class="text-accent font-bold text-sm">Email</p>
                 <input
-                  v-model.trim="store.form.password"
-                  name="password"
+                  v-model="store.form.email"
+                  name="email"
                   class="v-input"
-                  :type="inputLogin"
+                  type="'email'"
                 />
               </div>
-              <router-link to="/forgot-password"
-                ><p
-                  @click="forgotPassword"
-                  class="capitalize text-end mt-4 text-xs text-accent cursor-pointer hover:text-primary"
-                >
-                  forgot password?
-                </p></router-link
-              >
-            </div>
 
-            <div>
-              <button
-                @click="login"
-                class="btn-full flex gap-2 justify-center items-center"
-              >
-                <span v-if="store.isLoading"
-                  ><button-loader :color="'success'"></button-loader
-                ></span>
-                <span class="text-sm md:text-base">Login</span>
-              </button>
-            </div>
-          </form>
+              <div>
+                <p class="text-accent font-bold text-sm">Password</p>
+                <div class="flex relative w-full">
+                  <img
+                    @click="toggleLoginPassword()"
+                    :src="`/icons/${switchLoginImage}`"
+                    alt=""
+                    class="absolute right-2 cursor-pointer top-5"
+                  />
+                  <input
+                    v-model.trim="store.form.password"
+                    name="password"
+                    class="v-input"
+                    :type="inputLogin"
+                  />
+                </div>
+                <router-link to="/forgot-password"
+                  ><p
+                    @click="forgotPassword"
+                    class="capitalize text-end mt-4 text-xs text-accent cursor-pointer hover:text-primary"
+                  >
+                    forgot password?
+                  </p></router-link
+                >
+              </div>
+
+              <div>
+                <button
+                  @click="login"
+                  class="btn-full flex gap-2 justify-center items-center"
+                >
+                  <span v-if="store.isLoading"
+                    ><button-loader :color="'success'"></button-loader
+                  ></span>
+                  <span class="text-sm md:text-base">Login</span>
+                </button>
+              </div>
+            </form>
+          </div>
           <p class="pt-5 text-center text-sm">
             Don't have an account?
             <router-link to="signup">
@@ -71,7 +73,7 @@
           </p>
         </div>
 
-        <div>
+        <div class="w-full">
           <p class="text-center">
             &copy; {{ new Date().getFullYear() }}.
             <span class="text-info font-bold">Iszify.com. </span> All Rights
@@ -97,7 +99,7 @@
 
           <div class="mt-5">
             <router-link to="/signup"
-              ><button class="btn-sm">Sign Up</button>
+              ><button class="btnn-sm">Sign Up</button>
             </router-link>
           </div>
         </div>
@@ -138,7 +140,7 @@ const login = async () => {
     password: store.form.password,
   });
 
-  if (response && response.status === 200) {
+  if (response.status === 200) {
     store.form = {};
     session.set("sessionData", {
       access_token: response?.data?.access_token,
@@ -150,10 +152,16 @@ const login = async () => {
     toast.success(response?.data?.message);
     store.isLoading = false;
   } else {
-    toast.error(response?.data?.message || "Network Error");
-    store.isLoading = false;
+    if (response?.error) {
+      if (response?.error?.email_verified === false) {
+        router.push("/otp-verify");
+        store.isLoading = false;
+        store.form = {};
+      } else {
+        toast.error(response?.error?.message || "Network Error");
+        store.isLoading = false;
+      }
+    }
   }
 };
 </script>
-
-<style scoped></style>

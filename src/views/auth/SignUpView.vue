@@ -166,16 +166,16 @@ const handleRegister = async () => {
     password: store.form.password,
   });
 
-  if (response && response.status === 200) {
+  if (!response?.error) {
     session.set("sessionData", {
       email: response?.data?.user_email,
     }),
       toast.success(response?.data?.message);
     router.push("/otp-verify");
-    store.form = {};
+
     store.isLoading = false;
   } else {
-    toast.error(response?.data?.message || "Network Error");
+    toast.error(response?.error?.message || "Network Error");
     store.isLoading = false;
   }
 };
