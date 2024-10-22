@@ -27,7 +27,7 @@ body {
   /* For Webkit-based browsers (Chrome, Safari and Opera) */
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
-    color: #79d38585;
+    color: transparent;
   }
 
   /* For IE, Edge and Firefox */
@@ -97,12 +97,18 @@ body {
 
 @layer components {
   .v-input {
-    @apply w-full border-[0.5px] mt-2 text-sm bg-transparent indent-3 py-2.5 border-accent-shades focus:outline focus:outline-info-shades rounded-md placeholder:text-xs md:placeholder:text-sm;
+    @apply w-full border-[0.5px] mt-2 text-sm bg-transparent indent-3 py-2.5 border-accent focus:outline focus:outline-info rounded-md placeholder:text-xs md:placeholder:text-sm;
   }
   .btn-full {
     @apply w-full bg-info py-2.5 rounded-lg text-white hover:bg-info-tint hover:text-info font-bold;
   }
-  .btn-sm {
+  .btnn-sm {
     @apply bg-info text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-info-tint hover:text-info;
+  }
+  .btnn-sm-outline {
+    @apply border-info border text-info font-semibold px-5 py-2.5 rounded-lg hover:bg-info-tint hover:text-info;
+  }
+  .btn-green-sm {
+    @apply bg-primary text-white font-semibold px-3 md:px-5 py-1.5 md:py-2.5 text-xs rounded-lg hover:bg-primary-shades hover:text-white;
   }
 }

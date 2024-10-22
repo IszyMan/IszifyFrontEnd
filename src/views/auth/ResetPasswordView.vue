@@ -121,7 +121,7 @@ const handleResettPassword = async () => {
     toast.success(response?.data?.message);
     isLoading.value = false;
   } else {
-    toast.error(response?.data?.message || "Network Error");
+    toast.error(response?.error?.message || "Network Error");
     isLoading.value = false;
   }
 };
