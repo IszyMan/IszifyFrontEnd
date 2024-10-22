@@ -14,7 +14,7 @@
       </p>
       <div class="mt-5">
         <router-link to="/">
-          <button class="btn-sm capitalize">back to home</button></router-link
+          <button class="btnn-sm capitalize">back to home</button></router-link
         >
       </div>
     </div>
